@@ -2,12 +2,21 @@ import React, { useEffect } from "react";
 import CricketerList from "../UI/organisms/CricketerList";
 import usePlayers from "../../hooks/usePlayers";
 import SpinnerComponent from "../UI/atoms/Spinner";
-import { Box, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import Pagination from "../UI/molecules/Pagination";
+import SearchBar from "../UI/molecules/SearchBar";
 
 const CricketersPage: React.FC = () => {
-  const { players, loading, error, currentPage, totalPages, setCurrentPage } =
-    usePlayers();
+  const {
+    players,
+    loading,
+    error,
+    currentPage,
+    totalPages,
+    setCurrentPage,
+    searchName,
+    setSearchName,
+  } = usePlayers();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -23,6 +32,13 @@ const CricketersPage: React.FC = () => {
 
   return (
     <>
+      <Box sx={{ py: 0, px: 2 }}>
+        <Grid container spacing={4} alignItems="stretch">
+          <Grid item xs={12} sm={6} md={4} lg={6}>
+            <SearchBar value={searchName} onChange={setSearchName} />
+          </Grid>
+        </Grid>
+      </Box>
       <Box
         sx={{
           py: 4,
