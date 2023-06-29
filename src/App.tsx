@@ -4,6 +4,7 @@ import { colorConfigs } from "./configs/colorConfigs";
 import "./App.css";
 import MainLayout from "./components/Pages/MainLayout";
 import CricketersPage from "./components/Pages/CricketersPage";
+import CricketersDetailPage from "./components/Pages/CricketersDetailPage";
 
 const theme = createTheme({
   palette: {
@@ -30,6 +31,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<CricketersPage />} />
+            <Route path="players/:id" element={<CricketersDetailPage />} />
           </Route>
         </Routes>
       </Router>

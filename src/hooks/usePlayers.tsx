@@ -3,6 +3,7 @@ import getPlayers from "../api/get-players";
 import { TPlayer } from "../types";
 
 interface UsePlayersResult {
+  allPlayers: TPlayer[];
   players: TPlayer[];
   loading: boolean;
   error: Error | null;
@@ -37,6 +38,7 @@ const usePlayers = (pageSize = 10): UsePlayersResult => {
 
   return {
     players: paginatedPlayers,
+    allPlayers: players,
     loading,
     error,
     currentPage,

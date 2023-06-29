@@ -10,9 +10,13 @@ import PlayerInfoList from "./PlayerInfoList";
 
 interface CricketerItemProps {
   cricketer: TPlayer;
+  showAge?: boolean;
 }
 
-const CricketerItem: React.FC<CricketerItemProps> = ({ cricketer }) => {
+const CricketerItem: React.FC<CricketerItemProps> = ({
+  cricketer,
+  showAge,
+}) => {
   return (
     <Card sx={{ p: 2, background: colorConfigs.cardBg, borderRadius: "12px" }}>
       <Box sx={{ borderRadius: "4px", overflow: "hidden" }}>
@@ -28,7 +32,7 @@ const CricketerItem: React.FC<CricketerItemProps> = ({ cricketer }) => {
             {cricketer.name}
           </LinkComponent>
         </Typography>
-        <PlayerInfoList player={cricketer} />
+        <PlayerInfoList player={cricketer} showAge={showAge} />
       </CardContent>
     </Card>
   );
