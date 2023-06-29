@@ -5,6 +5,7 @@ import SpinnerComponent from "../UI/atoms/Spinner";
 import { Box, Grid, Typography } from "@mui/material";
 import Pagination from "../UI/molecules/Pagination";
 import SearchBar from "../UI/molecules/SearchBar";
+import { Sorting } from "../UI/molecules/Sorting";
 
 const CricketersPage: React.FC = () => {
   const {
@@ -16,6 +17,8 @@ const CricketersPage: React.FC = () => {
     setCurrentPage,
     searchName,
     setSearchName,
+    sortKey,
+    setSortKey,
   } = usePlayers();
 
   useEffect(() => {
@@ -36,6 +39,13 @@ const CricketersPage: React.FC = () => {
         <Grid container spacing={4} alignItems="stretch">
           <Grid item xs={12} sm={6} md={4} lg={6}>
             <SearchBar value={searchName} onChange={setSearchName} />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} lg={6}>
+            <Grid container spacing={3} alignItems="stretch">
+              <Grid item xs={12} sm={6} md={4} lg={6}>
+                <Sorting value={sortKey} setSortKey={setSortKey} />
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Box>

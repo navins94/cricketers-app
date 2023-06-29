@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import getPlayers from "../api/get-players";
-import { TPlayer } from "../types";
+import { sortPlayers } from "../utils";
+import { TPlayer, SortKey } from "../types";
 
 interface UsePlayersResult {
   allPlayers: TPlayer[];
@@ -13,6 +14,8 @@ interface UsePlayersResult {
   setCurrentPage: (page: number) => void;
   searchName: string;
   setSearchName: (type: string) => void;
+  sortKey: SortKey;
+  setSortKey: (key: SortKey) => void;
 }
 
 const usePlayers = (pageSize = 10): UsePlayersResult => {
@@ -23,6 +26,7 @@ const usePlayers = (pageSize = 10): UsePlayersResult => {
   const [error, setError] = useState<Error | null>(null);
   const [players, setPlayers] = useState<TPlayer[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortKey, setSortKey] = useState<SortKey>("name");
   const [searchName, setSearchName] = useState<string>(
     () => searchParams.get("q") || ""
   );
@@ -58,8 +62,10 @@ const usePlayers = (pageSize = 10): UsePlayersResult => {
       : player?.name?.toLowerCase().includes(searchName.toLowerCase())
   );
 
-  const totalPages = Math.ceil((filteredPlayers?.length || 0) / pageSize);
-  const paginatedPlayers = filteredPlayers?.slice(
+  const sortedPlayers = sortPlayers(filteredPlayers, sortKey);
+
+  const totalPages = Math.ceil((sortedPlayers?.length || 0) / pageSize);
+  const paginatedPlayers = sortedPlayers?.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
@@ -74,6 +80,8 @@ const usePlayers = (pageSize = 10): UsePlayersResult => {
     setCurrentPage,
     searchName,
     setSearchName,
+    sortKey,
+    setSortKey,
   };
 };
 

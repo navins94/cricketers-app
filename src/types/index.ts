@@ -9,3 +9,5 @@ export type TPlayer = {
   rank?: TMayBe<number>;
   dob?: TMayBe<number>;
 };
+
+export type SortKey = "name" | "rank" | "age";
