@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import CricketerList from "../components/UI/organisms/CricketerList";
+import PlayerTypeFilter from "../components/UI/molecules/PlayerTypeFilter";
+import SearchBar from "../components/UI/molecules/SearchBar";
 import { TPlayer } from "../types";
 
 test("renders player list", () => {
@@ -35,4 +37,28 @@ test("renders player list", () => {
       expect(playerElement).toBeInTheDocument();
     }
   });
+});
+
+test("renders filter component correctly", () => {
+  const mockHandlePlayerTypeChange = jest.fn();
+
+  render(
+    <PlayerTypeFilter
+      playerType="all"
+      handlePlayerTypeChange={mockHandlePlayerTypeChange}
+    />
+  );
+
+  const selectElement = screen.getByRole("button");
+  expect(selectElement).toBeInTheDocument();
+});
+
+test("renders search bar component correctly", () => {
+  const mockHandleSearch = jest.fn();
+
+  render(<SearchBar value="" onChange={mockHandleSearch} />);
+
+  const inputElement = screen.getByPlaceholderText(/search/i);
+  expect(inputElement).toBeInTheDocument();
+  expect(mockHandleSearch).toHaveBeenCalledTimes(0);
 });
