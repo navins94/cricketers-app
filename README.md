@@ -41,6 +41,12 @@ npm install
 npm run dev
 ```
 
+### Running Tests
+
+```bash
+npm test
+```
+
 ## Built With
 
 - [React](https://reactjs.org/)
