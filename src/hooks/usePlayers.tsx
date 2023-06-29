@@ -16,6 +16,8 @@ interface UsePlayersResult {
   setSearchName: (type: string) => void;
   sortKey: SortKey;
   setSortKey: (key: SortKey) => void;
+  playerType: string;
+  setPlayerType: (type: string) => void;
 }
 
 const usePlayers = (pageSize = 10): UsePlayersResult => {
@@ -27,6 +29,9 @@ const usePlayers = (pageSize = 10): UsePlayersResult => {
   const [players, setPlayers] = useState<TPlayer[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortKey, setSortKey] = useState<SortKey>("name");
+  const [playerType, setPlayerType] = useState<string>(
+    () => searchParams.get("type") || "all"
+  );
   const [searchName, setSearchName] = useState<string>(
     () => searchParams.get("q") || ""
   );
@@ -46,6 +51,9 @@ const usePlayers = (pageSize = 10): UsePlayersResult => {
 
   useEffect(() => {
     const newSearchParams = new URLSearchParams();
+    if (playerType !== "all") {
+      newSearchParams.set("type", playerType);
+    }
     if (searchName !== "") {
       newSearchParams.set("q", searchName);
     }
@@ -54,13 +62,17 @@ const usePlayers = (pageSize = 10): UsePlayersResult => {
       search: newSearchParams.toString(),
     };
     history(options, { replace: true });
-  }, [searchName]);
+  }, [playerType, searchName]);
 
-  const filteredPlayers = players.filter((player) =>
-    searchName === ""
-      ? true
-      : player?.name?.toLowerCase().includes(searchName.toLowerCase())
-  );
+  const filteredPlayers = players
+    .filter((player) =>
+      playerType === "all" ? true : playerType === player.type
+    )
+    .filter((player) =>
+      searchName === ""
+        ? true
+        : player?.name?.toLowerCase().includes(searchName.toLowerCase())
+    );
 
   const sortedPlayers = sortPlayers(filteredPlayers, sortKey);
 
@@ -82,6 +94,8 @@ const usePlayers = (pageSize = 10): UsePlayersResult => {
     setSearchName,
     sortKey,
     setSortKey,
+    playerType,
+    setPlayerType,
   };
 };
 

@@ -6,6 +6,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import Pagination from "../UI/molecules/Pagination";
 import SearchBar from "../UI/molecules/SearchBar";
 import { Sorting } from "../UI/molecules/Sorting";
+import PlayerTypeFilter from "../UI/molecules/PlayerTypeFilter";
 
 const CricketersPage: React.FC = () => {
   const {
@@ -19,6 +20,8 @@ const CricketersPage: React.FC = () => {
     setSearchName,
     sortKey,
     setSortKey,
+    playerType,
+    setPlayerType,
   } = usePlayers();
 
   useEffect(() => {
@@ -44,6 +47,12 @@ const CricketersPage: React.FC = () => {
             <Grid container spacing={3} alignItems="stretch">
               <Grid item xs={12} sm={6} md={4} lg={6}>
                 <Sorting value={sortKey} setSortKey={setSortKey} />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4} lg={6}>
+                <PlayerTypeFilter
+                  playerType={playerType}
+                  handlePlayerTypeChange={setPlayerType}
+                />
               </Grid>
             </Grid>
           </Grid>

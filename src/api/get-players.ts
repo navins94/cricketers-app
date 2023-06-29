@@ -52,6 +52,7 @@ const data: TPlayer[] = [
     description:
       "Rahul Sharad Dravid is an Indian cricket coach and former captain of the Indian national team, currently serving as its head coach. Prior to his appointment to the senior men's national team, Dravid was the Head of Cricket at the National Cricket Academy, and the head coach of the India Under-19 and India A teams.",
     points: 211,
+    type: "batsman",
     dob: 95558400000,
   },
   {

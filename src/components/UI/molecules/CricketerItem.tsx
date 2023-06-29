@@ -18,7 +18,14 @@ const CricketerItem: React.FC<CricketerItemProps> = ({
   showAge,
 }) => {
   return (
-    <Card sx={{ p: 2, background: colorConfigs.cardBg, borderRadius: "12px" }}>
+    <Card
+      sx={{
+        p: 2,
+        background: colorConfigs.cardBg,
+        borderRadius: "12px",
+        width: "100%",
+      }}
+    >
       <Box sx={{ borderRadius: "4px", overflow: "hidden" }}>
         <CardMedia
           sx={{ height: 278 }}
