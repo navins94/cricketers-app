@@ -21,7 +21,7 @@ const CricketerList: React.FC<CricketerListProps> = ({
           sm={6}
           md={6}
           lg={4}
-          xl={12 / 5}
+          xl={3}
           key={cricketer.id}
           sx={{ display: "flex" }}
         >
