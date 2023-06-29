@@ -9,6 +9,7 @@ interface UsePlayersResult {
   error: Error | null;
   currentPage: number;
   totalPages: number;
+  setCurrentPage: (page: number) => void;
 }
 
 const usePlayers = (pageSize = 10): UsePlayersResult => {
@@ -43,6 +44,7 @@ const usePlayers = (pageSize = 10): UsePlayersResult => {
     error,
     currentPage,
     totalPages,
+    setCurrentPage,
   };
 };
 
