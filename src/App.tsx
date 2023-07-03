@@ -5,6 +5,7 @@ import "./App.css";
 import MainLayout from "./components/Pages/MainLayout";
 import CricketersPage from "./components/Pages/CricketersPage";
 import CricketersDetailPage from "./components/Pages/CricketersDetailPage";
+import ScrollToTop from "./helpers/ScrollToTop";
 
 const theme = createTheme({
   palette: {
@@ -28,6 +29,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<CricketersPage />} />
