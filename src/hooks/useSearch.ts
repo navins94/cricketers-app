@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { TPlayer } from "../types";
 
 interface UseSearchResult {
