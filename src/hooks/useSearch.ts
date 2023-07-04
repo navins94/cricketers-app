@@ -1,23 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { TPlayer } from "../types";
 
-const useSearch = (players: TPlayer[], initialSearchName = "") => {
-  const [searchName, setSearchName] = useState<string>(initialSearchName);
-  const [searchedPlayers, setSearchedPlayers] = useState<TPlayer[]>([]);
+interface UseSearchResult {
+  searchResult: TPlayer[];
+  searchName: string;
+  setSearchName: (type: string) => void;
+}
 
-  useEffect(() => {
-    if (searchName === "") {
-      setSearchedPlayers(players);
-    } else {
-      setSearchedPlayers(
-        players.filter((player) =>
-          player?.name?.toLowerCase().includes(searchName.toLowerCase())
-        )
-      );
-    }
+const useSearch = (
+  players: TPlayer[],
+  initialSearchName: string
+): UseSearchResult => {
+  const [searchName, setSearchName] = useState<string>(initialSearchName);
+
+  const searchResult = useMemo(() => {
+    return players.filter((player) =>
+      searchName === ""
+        ? true
+        : player?.name?.toLowerCase().includes(searchName.toLowerCase())
+    );
   }, [players, searchName]);
 
-  return { searchedPlayers, searchName, setSearchName };
+  return { searchResult, searchName, setSearchName };
 };
 
 export default useSearch;

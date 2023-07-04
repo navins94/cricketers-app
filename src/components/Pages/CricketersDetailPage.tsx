@@ -11,12 +11,12 @@ import { colorConfigs } from "../../configs/colorConfigs";
 export default function MediaControlCard() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const { allPlayers, loading, error } = usePlayers();
-  const player = allPlayers.find((player) => player.id === id);
+  const { players, loading, error } = usePlayers();
+  const player = players.find((player) => player.id === id);
 
   const getSimilarPlayers = () => {
     if (!player) return [];
-    return allPlayers
+    return players
       .filter((p) => p.type === player.type && p.id !== player.id)
       .slice(0, 5);
   };

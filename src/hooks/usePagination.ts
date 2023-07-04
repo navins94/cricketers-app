@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { TPlayer } from "../types";
 
 interface UsePaginationResult {
@@ -10,24 +10,19 @@ interface UsePaginationResult {
 
 const usePagination = (
   players: TPlayer[],
-  pageSize: number,
-  initialPage = 1
+  initialPage: number,
+  pageSize: number
 ): UsePaginationResult => {
-  const [currentPage, setCurrentPage] = useState(initialPage);
-  const [paginatedPlayers, setPaginatedPlayers] = useState<TPlayer[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(initialPage);
 
-  useEffect(() => {
-    const totalPages = Math.ceil(players.length / pageSize);
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages);
-    }
-
-    const start = (currentPage - 1) * pageSize;
-    const end = start + pageSize;
-    setPaginatedPlayers(players.slice(start, end));
-  }, [players, currentPage, pageSize]);
-
-  const totalPages = Math.ceil(players.length / pageSize);
+  const totalPages = useMemo(
+    () => Math.ceil(players.length / pageSize),
+    [players, pageSize]
+  );
+  const paginatedPlayers = useMemo(
+    () => players.slice((currentPage - 1) * pageSize, currentPage * pageSize),
+    [players, currentPage, pageSize]
+  );
 
   return { paginatedPlayers, currentPage, totalPages, setCurrentPage };
 };

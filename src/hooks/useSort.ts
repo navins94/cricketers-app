@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { sortPlayers } from "../utils";
 import { TPlayer, SortKey } from "../types";
 
@@ -8,17 +8,14 @@ interface UseSortResult {
   setSortKey: (key: SortKey) => void;
 }
 
-interface UseSortParams {
-  players: TPlayer[];
-  initialSortKey: SortKey;
-}
-
-const useSort = ({ players, initialSortKey }: UseSortParams): UseSortResult => {
+const useSort = (
+  players: TPlayer[],
+  initialSortKey: SortKey = "name"
+): UseSortResult => {
   const [sortKey, setSortKey] = useState<SortKey>(initialSortKey);
-  const [sortedPlayers, setSortedPlayers] = useState<TPlayer[]>([]);
 
-  useEffect(() => {
-    setSortedPlayers(sortPlayers(players, sortKey));
+  const sortedPlayers = useMemo(() => {
+    return sortPlayers(players, sortKey);
   }, [players, sortKey]);
 
   return { sortedPlayers, sortKey, setSortKey };
